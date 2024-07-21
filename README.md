@@ -17,7 +17,9 @@ This will start a server on 0.0.0.0:8000
 
 ### A pod with one container
 
+```bash
 curl -X POST -H "Content-Type: application/json" -d   @AdmissionReviewExamples/container.json http://localhost:8000/mutate | jq .
+```
 
 ### A pod with two containers
 curl -X POST -H "Content-Type: application/json" -d   @AdmissionReviewExamples/containers.json http://localhost:8000/mutate | jq .
