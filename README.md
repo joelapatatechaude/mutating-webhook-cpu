@@ -3,7 +3,7 @@
 Read the blog post here to understand why -> link
 
 If for some reasons this work is usefull for you, don't use my container. Who knows what's inside!
-Instead, build your own. See below for instructions
+Instead, inspect the code (it's simple) build your own container, and use it. See below for instructions
 
 ## Install python dependencies to run locally
 
