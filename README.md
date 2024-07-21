@@ -25,6 +25,29 @@ This will start a server on 0.0.0.0:8000
 ```bash
 curl -X POST -H "Content-Type: application/json" -d   @AdmissionReviewExamples/container.json http://localhost:8000/mutate | jq .
 ```
+The output should looks something like:
+
+```json
+{
+  "apiVersion": "admission.k8s.io/v1",
+  "kind": "AdmissionReview",
+  "response": {
+    "uid": "0df28fbd-5f5f-11e8-bc74-36e6bb280816",
+    "allowed": true,
+    "patchType": "JSONPatch",
+    "patch": [
+      {
+        "op": "add",
+        "path": "/spec/containers/0/resources/requests",
+        "value": {
+          "cpu": "0.001"
+        }
+      }
+    ]
+  }
+}
+
+```
 
 ### A pod with two containers
 ```bash
@@ -35,6 +58,8 @@ curl -X POST -H "Content-Type: application/json" -d   @AdmissionReviewExamples/c
 ```bash
 curl -X POST -H "Content-Type: application/json" -d   @AdmissionReviewExamples/container_initContainer.json http://localhost:8000/mutate | jq .
 ```
+
+
 
 
 ## Build the container
