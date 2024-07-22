@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Request
 from pydantic import BaseModel
 import uvicorn
+import os
 
 app = FastAPI()
 
@@ -69,4 +70,10 @@ async def mutate_pod(admission_review: AdmissionReviewRequest):
     return AdmissionReviewResponse(**admission_review_response)
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    cert_file = os.getenv("TLS_CERT_FILE")
+    key_file = os.getenv("TLS_KEY_FILE")
+
+    if not cert_file or not key_file:
+        raise ValueError("TLS_CERT_FILE and TLS_KEY_FILE environment variables must be set")
+
+    uvicorn.run(app, host="0.0.0.0", port=8000, ssl_keyfile=key_file, ssl_certfile=cert_file)

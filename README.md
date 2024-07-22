@@ -11,6 +11,14 @@ Instead, inspect the code (it's simple) build your own container, and use it. Se
 pip install fastapi uvicorn
 ```
 
+## Generate a test certificate
+```bash
+./generate-test-tls.sh
+```
+This will just generate a test crt / key pair. It's required because the webhook muse use tls. Those cert
+are just here for test purpose for local run. A valid cert will be auto-generate on OpenShift.
+
+
 ## Run locally with:
 ```bash
 python webhook.py
@@ -20,10 +28,12 @@ This will start a server on 0.0.0.0:8000
 
 ## Test localy
 
+For local test, we use curl, but disable ssl verification as the cert generated earlier ar not valid, it's just for local testing.
+
 ### A pod with one container
 
 ```bash
-curl -X POST -H "Content-Type: application/json" -d   @AdmissionReviewExamples/container.json http://localhost:8000/mutate | jq .
+curl -k -X POST -H "Content-Type: application/json" -d   @AdmissionReviewExamples/container.json https://localhost:8000/mutate | jq .
 ```
 The output should looks something like:
 
@@ -51,12 +61,12 @@ The output should looks something like:
 
 ### A pod with two containers
 ```bash
-curl -X POST -H "Content-Type: application/json" -d   @AdmissionReviewExamples/containers.json http://localhost:8000/mutate | jq .
+curl -k -X POST -H "Content-Type: application/json" -d   @AdmissionReviewExamples/containers.json https://localhost:8000/mutate | jq .
 ```
 
 ### A pod with one container and one initContainer
 ```bash
-curl -X POST -H "Content-Type: application/json" -d   @AdmissionReviewExamples/container_initContainer.json http://localhost:8000/mutate | jq .
+curl -k -X POST -H "Content-Type: application/json" -d   @AdmissionReviewExamples/container_initContainer.json https://localhost:8000/mutate | jq .
 ```
 
 
