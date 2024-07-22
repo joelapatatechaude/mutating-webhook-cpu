@@ -19,6 +19,9 @@ spec:
             secretName: my-tls
       containers:
         - name: mutate-cpu
+          resources:
+            requests:
+              cpu: 0.001
           image: quay.io/rh_ee_cschmitz/cpu-request-override:blogpost
           volumeMounts:
             - mountPath: "/mount"
