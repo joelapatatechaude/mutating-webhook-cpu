@@ -12,7 +12,7 @@ webhooks:
       name: mutate-cpu
       namespace: admission-webhook
       path: "/mutate"
-      port: 443
+      port: 8000
   rules:
     - operations: ["CREATE", "UPDATE"]
       apiGroups: [""]
@@ -25,5 +25,5 @@ webhooks:
   namespaceSelector:
     matchLabels:
       mutate-cpu: "true"
-  failurePolicy: Fail
+  failurePolicy: Ignore
   timeoutSeconds: 3
